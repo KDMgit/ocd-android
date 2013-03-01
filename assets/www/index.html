@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OCD</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<!-- JQUERYMOBILE -->
+<script src="lib/jquery-1.9.1.min.js"></script>
+<script src="lib/jquery.form.js"></script>
+<script src="lib/jquery.mobile-1.3.0/jquery.mobile-1.3.0.min.js"></script>
+<link rel="stylesheet" href="lib/jquery.mobile-1.3.0/jquery.mobile-1.3.0.min.css" />
+
+<!-- TEMPLATE -->
+<script src="lib/handlebars.js"></script>
+
+<!-- OCD -->
+<script src="app/default.js"></script>
+<link rel="stylesheet" href="style/style.mobile.css" />
+
+</head>
+<body>
+
+
+
+	<!-- PAGINA PRINCIPALE -->
+	<script src="app/main.js"></script>
+	<div id="main-page" data-role="page">
+		<div data-role="header">
+			<h1>OCD</h1>
+		</div>
+		<div data-role="content">
+			<a href="#login-page" class="login-btn" data-role="button" data-rel="dialog">Login</a>
+			<a href="#" class="logout-btn" data-role="button" data-rel="dialog">Logout</a>
+			<a href="#category-page" class="search-btn" data-role="button">Search</a>
+			<h3>Latitudine</h3><p class="latitude"></p>
+			<h3>Longitudine</h3><p class="longitude"></p>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4 class="info-lbl"></h4>
+		</div>
+	</div>
+
+
+
+
+	<!-- LOGIN -->
+	<script src="app/login.js"></script>
+	<div id="login-page" data-role="page">
+		<div data-role="header">
+			<h1>Login</h1>
+		</div>
+		<div data-role="content">
+			<form class="login-form">
+				<label for="text-1">User</label> <input type="text" name="username" id="username-input" value="admin"> 
+				<label for="text-3">Password</label> <input type="text" name="password" id="password-input" value="admin">
+				<a class="login-btn" data-role="button" data-rel="dialog">Login</a>
+			</form>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4></h4>
+		</div>
+	</div>
+	
+	
+	
+	
+	<!-- CATEGORY -->
+	<script src="app/category.js"></script>
+	<script id="category-entry-template" type="text/x-handlebars-template"> 
+  		<li data-slug="{{slug}}" data-id="{{id}}"><a href="#"><h1>{{name}}</h1><p>{{description}}</p></a><span class="ui-li-count">{{count}}</span></li>
+	</script>
+	<div id="category-page" data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1>Categoria</h1>
+		</div>
+		<div data-role="content">
+			<ul class="category-lst" data-role="listview"></ul>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4><a href="#" onclick="history.back();" data-role="button">Indietro</a></h4>
+		</div>
+	</div>
+	
+	
+	
+	
+	<!-- LAYERS -->
+	<script src="app/layer.js"></script>
+	<script id="layer-entry-template" type="text/x-handlebars-template"> 
+  		<li data-typename="{{typename}}" data-name="{{name}}" data-id="{{id}}"><a href="#"><h1>{{title}}</h1><p>{{abstract}}</p></a></li>
+	</script>
+	<div id="layers-page" data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1 class="category-lbl">Layers</h1>
+		</div>
+		<div data-role="content">
+			<ul class="layers-lst" data-role="listview"></ul>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4><a href="#" onclick="history.back();" data-role="button">Indietro</a></h4>
+		</div>
+	</div>
+	
+	
+	
+	
+	<!-- SEARCH -->
+	<script src="app/search.js"></script>
+	<div id="search-page" data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1>Search</h1>
+		</div>
+		<div data-role="content">
+			<ul class="entry-lst" data-role="listview">
+				<li><h1>Categoria</h1><p class="category-lbl"></p></li>
+				<li><h1>Layer</h1><p class="layer-lbl"></p></li>
+				<li><h1><a href="#" class="search-btn ui-disabled" data-role="button">Cerca nei d'intorni</a></h1></li>
+			</ul>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4><a href="#" onclick="history.back();" data-role="button">Indietro</a></h4>
+		</div>
+	</div>
+	
+	
+	
+	
+	<!-- POI -->
+	<script src="app/poi.js"></script>
+	<script id="poi-entry-template" type="text/x-handlebars-template"> 
+  		<li data-id="{{id}}"><a href="#"><h1>{{properties.NAME}}</h1><p>{{properties.CATEGORY}}</p></a></li>
+	</script>
+	<div id="poi-page" data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1>POIs</h1>
+		</div>
+		<div data-role="content">
+			<ul class="pois-lst" data-role="listview"></ul>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4><a href="#" onclick="history.back();" data-role="button">Indietro</a></h4>
+		</div>
+	</div>
+	
+	
+	
+	
+	<!-- POI DETAILS -->
+	<script src="app/poi-details.js"></script>
+	<script id="poi-details-template" type="text/x-handlebars-template"> 
+  		<li><h1>Nome</h1><p>{{properties.NAME}}</p></li>
+		<li><h1><img style="width:100%" src="{{get_preview_url}}" /></h1></li>
+		<li><h1>Category</h1><p>{{properties.CATEGORY}}</p></li>
+		<li><h1>Coordinate</h1><p>{{coordinates.0.}}</p><p>{{coordinates.1.}}</p></li>
+	</script>
+	<div id="poi-details-page" data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1>Dettagli</h1>
+		</div>
+		<div data-role="content">
+			<ul class="details-lst" data-role="listview">
+			</ul>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4><a href="#" onclick="history.back();" data-role="button">Indietro</a></h4>
+		</div>
+	</div>
+	
+	
+	
+	
+</body>
+</html>
