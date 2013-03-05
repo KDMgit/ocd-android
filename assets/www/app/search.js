@@ -20,6 +20,8 @@ $(window).bind('ready', function() {
 		
 		OCD.search.category.text(OCD.search.data.category);
 		OCD.search.layer.text(OCD.search.data.layer);
+		
+		OCD.search.range = $('#search-page .range-sld');
 	});
 	
 	OCD.search.button.on('click', function(){
@@ -29,7 +31,8 @@ $(window).bind('ready', function() {
 			var lat = p.coords.latitude;
 			var lon = p.coords.longitude;
 			
-			var delta = 0.005;
+			var range = OCD.search.range.val();
+			var delta = 0.005 * range / 1000;
 			
 			var b1 = lat - delta;
 			var b2 = lon - delta;

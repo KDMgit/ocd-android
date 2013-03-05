@@ -116,6 +116,10 @@
 			<ul class="entry-lst" data-role="listview">
 				<li><h1>Categoria</h1><p class="category-lbl"></p></li>
 				<li><h1>Layer</h1><p class="layer-lbl"></p></li>
+				<li>
+					<label for="slider-1">Raggio (metri):</label>
+    				<input type="range" class="range-sld" min="10" max="1000" value="500">
+    			</li>
 				<li><h1><a href="#" class="search-btn ui-disabled" data-role="button">Cerca nei d'intorni</a></h1></li>
 			</ul>
 		</div>
@@ -160,8 +164,9 @@
 		<li>
 			<h1><a href="#" class='rate-btn' data-id={{id}} data-role="button">Vota</a></h1>
 		</li>
-		<li><h1>Category</h1><p>{{properties.CATEGORY}}</p></li>
-		<li><h1>Coordinate</h1><p>{{coordinates.0.}}</p><p>{{coordinates.1.}}</p></li>
+			{{#forEach properties}}
+				<li><h1>{{key}}</h1><p>{{value}}</p></li>
+			{{/forEach}}
 		<li>
 			<h1><a href="#" class='comments-btn' data-id={{id}} data-role="button">Commenti</a></h1>
 		</li>

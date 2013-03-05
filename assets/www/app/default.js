@@ -123,6 +123,17 @@ $.ajaxSetup({
 });
 
 
+/**
+ * HANDLEBARS
+ */
+Handlebars.registerHelper('forEach', function(context, options) {
+    var ret = "";
+    for(var prop in context)
+    {
+        ret = ret + options.fn({key:prop,value:context[prop]});
+    }
+    return ret;
+});
 
 
 
