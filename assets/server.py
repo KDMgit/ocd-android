@@ -1,8 +1,12 @@
 from flask import Flask
-from flask import request, Response
+from flask import request, Response, make_response
 from flask.helpers import send_from_directory
 
 import httplib2
+import urllib
+import requests
+
+import ipdb
 
 http = httplib2.Http()
 
@@ -20,22 +24,22 @@ def proxy():
     
     response, content = http.request(url, method, body, headers)
     
-    return Response(status=response.status, headers=response, response=content)
+    return make_response((content, response.status, response))
 
 
 
 @app.route("/ripple/xhr_proxy", methods=["GET", "POST"])
 def ripple_proxy():
+    
     url = request.args['tinyhippos_rurl']
-    
     method = request.method
-    body = request.data
-    
+    body = urllib.urlencode(request.form)
     headers = dict(request.headers.to_list())
     
-    response, content = http.request(url, method, body, headers)
+    header, content = http.request(url, method=method, body=body, headers=headers)
+    header.pop('location',None)
     
-    return Response(status=response.status, headers=response, response=content)
+    return make_response((content, header.status, header))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug="true", port=5000)

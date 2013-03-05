@@ -32,4 +32,8 @@ $(window).bind('ready', function() {
 			},
 		});
 	});
+	
+	// DEBUG
+//	OCD.comments.data.poi = "monaco_poi.327";
+//	$.mobile.changePage($('#comments-page'));
 });

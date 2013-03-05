@@ -152,8 +152,19 @@
 	<script id="poi-details-template" type="text/x-handlebars-template"> 
   		<li><h1>Nome</h1><p>{{properties.NAME}}</p></li>
 		<li><h1><img style="width:100%" src="{{get_preview_url}}" /></h1></li>
+		<li>
+			<h1>Rating</h1>
+				<p>Overall: {{rating.overall}}</p>
+				<p>User: {{rating.user}}</p>
+		</li>
+		<li>
+			<h1><a href="#" class='rate-btn' data-id={{id}} data-role="button">Vota</a></h1>
+		</li>
 		<li><h1>Category</h1><p>{{properties.CATEGORY}}</p></li>
 		<li><h1>Coordinate</h1><p>{{coordinates.0.}}</p><p>{{coordinates.1.}}</p></li>
+		<li>
+			<h1><a href="#" class='comments-btn' data-id={{id}} data-role="button">Commenti</a></h1>
+		</li>
 	</script>
 	<div id="poi-details-page" data-role="page">
 		<div data-role="header" data-position="fixed">
@@ -170,6 +181,75 @@
 	
 	
 	
+	
+	<!-- COMMENTS -->
+	<script src="app/comments.js"></script>
+	<script id="poi-comments-template" type="text/x-handlebars-template">
+			<li>
+				<a href="#new-comment-page" data-role="button">Nuovo</a>
+			</li>
+		{{#each comments}}
+			<li>
+				<h3>{{author.username}}</h3>
+				<h4>{{date}}</h4>
+				<p>{{comment}}</p>
+			</li>
+		{{/each}}
+	</script>
+	<div id="comments-page" data-role="page">
+		<div data-role="header" data-position="fixed">
+			<h1>Commenti</h1>
+		</div>
+		<div data-role="content">
+			<ul class="comments-lst" data-role="listview">
+			</ul>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4><a href="#" onclick="history.back();" data-role="button">Indietro</a></h4>
+		</div>
+	</div>
+	
+	
+	
+	
+	<!-- COMMENTS FORM -->
+	<script src="app/comment-form.js"></script>
+	<div id="new-comment-page" data-role="dialog">
+		<div data-role="header" data-position="fixed">
+			<h1>Nuovo commento</h1>
+		</div>
+		<div data-role="content">
+			<form class="form">
+				<textarea class="comment" rows="10" cols="" name="comment"></textarea>
+			</form>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4><a href="#" class="submit" data-role="button">Invia</a></h4>
+		</div>
+	</div>
+	
+	
+	
+	
+	<!-- RATE FORM -->
+	<script src="app/rate.js"></script>
+	<div id="rate-page" data-role="dialog">
+		<div data-role="header" data-position="fixed">
+			<h1>Rate</h1>
+		</div>
+		<div data-role="content">
+			<div class="ui-grid-d">
+			    <div class="ui-block-a"><a href="#" data-role="button" onclick="OCD.rate.rate(1);">1</a></div>
+			    <div class="ui-block-b"><a href="#" data-role="button" onclick="OCD.rate.rate(2);">2</a></div>
+			    <div class="ui-block-c"><a href="#" data-role="button" onclick="OCD.rate.rate(3);">3</a></div>
+			    <div class="ui-block-d"><a href="#" data-role="button" onclick="OCD.rate.rate(4);">4</a></div>
+			    <div class="ui-block-e"><a href="#" data-role="button" onclick="OCD.rate.rate(5);">5</a></div>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4><a href="#" class="submit" data-role="button">Vota</a></h4>
+		</div>
+	</div>
 	
 </body>
 </html>
