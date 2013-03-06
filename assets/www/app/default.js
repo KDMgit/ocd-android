@@ -36,7 +36,7 @@ OCD.urls = {};
 OCD.urls.geonode = {};
 
 // http://localhost:5000/Proxy/?
-OCD.urls.geonode.host = 'http://localhost:8000';
+OCD.urls.geonode.host = 'http://192.168.0.112:8000';
 OCD.urls.geonode.login = OCD.urls.geonode.host + '/mobile/login';
 OCD.urls.geonode.logout = OCD.urls.geonode.host + '/mobile/logout';
 OCD.urls.geonode.categories = OCD.urls.geonode.host + '/mobile/categories/';
@@ -53,22 +53,21 @@ OCD.urls.geonode.set_rate = OCD.urls.geonode.host + '/mobile/{{poi_id}}/rating/u
  */
 OCD.gps = {};
 OCD.gps.current;
+OCD.gps.options = { maximumAge: 3000, timeout: 60000, enableHighAccuracy: true };
 
-OCD.gps.watchId = navigator.geolocation.getCurrentPosition(function(position){
-	if(position == null){
-		alert();
-	}
+OCD.gps.onSuccess = function(position){
 	OCD.gps.current = position;
 	$(window).trigger('ocd/position-update');
-});
+};
 
-OCD.gps.watchId = navigator.geolocation.watchPosition(function(position){
-	if(position == null){
-		alert();
-	}
-	OCD.gps.current = position;
-	$(window).trigger('ocd/position-update');
-});
+OCD.gps.onError = function(error){
+	OCD.main.info.text(error.code + ': ' + error.message);
+};
+
+OCD.gps.getCurrenthId = navigator.geolocation.getCurrentPosition(OCD.gps.onSuccess, OCD.gps.onError, OCD.gps.options);
+OCD.gps.watchId = navigator.geolocation.watchPosition(OCD.gps.onSuccess, OCD.gps.onError, OCD.gps.options);
+	
+
 
 
 /**
