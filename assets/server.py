@@ -39,7 +39,11 @@ def ripple_proxy():
     header, content = http.request(url, method=method, body=body, headers=headers)
     header.pop('location',None)
     
-    return make_response((content, header.status, header))
+    r = make_response((content, header.status, header))
+    if r.status_code == 413:
+        r.status_code = 200
+    
+    return r
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug="true", port=5000)

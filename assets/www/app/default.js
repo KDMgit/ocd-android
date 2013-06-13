@@ -36,7 +36,9 @@ OCD.urls = {};
 OCD.urls.geonode = {};
 
 // http://localhost:5000/Proxy/?
-OCD.urls.geonode.host = 'http://192.168.0.112:8000';
+//OCD.urls.geonode.host = 'http://192.168.0.67:8000';
+//OCD.urls.geonode.host = 'http://95.110.167.11';
+OCD.urls.geonode.host = 'http://localhost:8000';
 OCD.urls.geonode.login = OCD.urls.geonode.host + '/mobile/login';
 OCD.urls.geonode.logout = OCD.urls.geonode.host + '/mobile/logout';
 OCD.urls.geonode.categories = OCD.urls.geonode.host + '/mobile/categories/';
