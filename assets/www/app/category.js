@@ -27,6 +27,7 @@ $(window).bind('ready', function() {
 						
 						var li = $(html.trim()).on('click', function(){
 							OCD.layer.category = $(this).data('slug');
+							OCD.layer.category_name = $(this).data('name');
 							$.mobile.changePage($('#layers-page'));
 						});
 						

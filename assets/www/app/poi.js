@@ -40,6 +40,12 @@ $(window).bind('ready', function() {
 						
 						OCD.poi.pois.append(li);
 					}
+					
+					// Se la lista layer è vuota
+					if(data.length == 0){
+						source = $("#poi-empty-template").html().trim();
+						OCD.poi.pois.append(source)
+					}
 
 					// Refresh
 					OCD.poi.pois.listview("refresh");

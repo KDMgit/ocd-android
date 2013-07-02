@@ -18,8 +18,8 @@ $(window).bind('ready', function() {
 		var template = Handlebars.compile(OCD.urls.geonode.layers);
 		var url = template({slug: OCD.layer.category});
 		
-		OCD.search.category.text(OCD.search.data.category);
-		OCD.search.layer.text(OCD.search.data.layer);
+		OCD.search.category.text(OCD.layer.category_name);
+		OCD.search.layer.text(OCD.search.data.title);
 		
 		OCD.search.range = $('#search-page .range-sld');
 	});

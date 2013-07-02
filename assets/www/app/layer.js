@@ -34,11 +34,18 @@ $(window).bind('ready', function() {
 						var li = $(html.trim()).on('click', function(){
 							OCD.search.data.category = OCD.layer.category;
 							OCD.search.data.layer = $(this).data('typename');
+							OCD.search.data.title = $(this).data('title');
 							
 							$.mobile.changePage($('#search-page'));
 						});
 						
 						OCD.layer.layers.append(li);
+					}
+					
+					// Se la lista layer è vuota
+					if(data.length == 0){
+						source = $("#layer-empty-template").html().trim();
+						OCD.layer.layers.append(source)
 					}
 					
 					// Refresh

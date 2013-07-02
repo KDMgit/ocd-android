@@ -1,5 +1,6 @@
 OCD.poi_details = {};
 OCD.poi_details.data = {};
+OCD.poi_details.details = {};
 
 //Variabili correnti
 OCD.poi_details.data.poi_id;
@@ -20,6 +21,8 @@ $(window).bind('ready', function() {
 			url: url,
 			type: 'get',
 			success: function(data, status){
+				OCD.poi_info.data.info = data;
+				
 				var template = Handlebars.compile($('#poi-details-template').html());
 				var html = template(data);
 				OCD.poi_details.details.empty();
@@ -41,6 +44,10 @@ $(window).bind('ready', function() {
 					OCD.rate.data.poi_id = $(this).data('id');
 					$.mobile.changePage($('#rate-page'));
 				});
+				
+				OCD.poi_details.info = $('#poi-details-page .info-btn');
+				OCD.poi_details.info.button();
+				
 			},
 		});
 	});

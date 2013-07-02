@@ -14,7 +14,7 @@ $(window).bind('ready', function() {
 		OCD.comments_form.submit.addClass('ui-disabled');
 	});
 	
-	OCD.comments_form.comment.on('change', function(){
+	$(document).on('keyup', function(){
 		if(OCD.comments_form.comment.val() == ''){
 			OCD.comments_form.submit.addClass('ui-disabled');
 		} else {
@@ -34,6 +34,10 @@ $(window).bind('ready', function() {
 			type : 'post',
 			success : function(data, status) {
 				$('#new-comment-page').dialog('close');
+			},
+			error : function(xhr, status, error){
+				OCD.main.info.text('Comment: ' + error);
+				alert("Si è verificato un errore");
 			},
 		});
 	});

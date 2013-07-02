@@ -23,6 +23,15 @@
 <!-- <script src="http://debug.phonegap.com/target/target-script-min.js#kdmOcdDebug"></script> -->
 <script type="text/javascript" charset="utf-8" src="cordova-2.5.0.js"></script>
 
+<!-- ALTRO -->
+<script src="lib/jquery.cookie.js"></script>
+
+<style type="text/css">
+	.error {
+		color: red
+	}
+</style>
+
 </head>
 <body>
 
@@ -30,17 +39,37 @@
 
 	<!-- PAGINA PRINCIPALE -->
 	<script src="app/main.js"></script>
+	<script src="app/login.js"></script>
 	<div id="main-page" data-role="page">
 		<div data-role="header">
 			<h1>OCD</h1>
 		</div>
 		<div data-role="content">
+			
 			<center><img src="img/logo-ocd.png" /></center>
-			<a href="#login-page" class="login-btn" data-role="button" data-rel="dialog">Login</a>
-			<a href="#" class="logout-btn" data-role="button" data-rel="dialog">Logout</a>
-			<a href="#category-page" class="search-btn" data-role="button">Search</a>
-			<h3>Latitudine</h3><p class="latitude"></p>
-			<h3>Longitudine</h3><p class="longitude"></p>
+	
+			<form class="login-form">
+				<label for="text-1">Username</label> <input type="text" name="username" id="username-input" value="admin"> 
+				<label for="text-3">Password</label> <input type="password" name="password" id="password-input" value="admin">
+				<a class="login-btn ui-disabled" data-role="button" data-rel="dialog">Login</a>
+			</form>
+			<a href="#signup-page" class="signup-btn ui-disabled" data-role="button" data-rel="dialog">Registrati</a>
+			
+			<!-- <a href="#login-page" class="login-btn" data-role="button" data-rel="dialog">Login</a>  -->
+			<a href="#logout-page" class="logout-btn" data-role="button" data-rel="dialog">Logout</a>
+			<a href="#category-page" class="search-btn" data-role="button">Cerca nei d'intorni</a>
+			
+					
+			<br />
+			
+			<ul data-role="listview">
+				<li>
+					<h1>Posizione corrente</h1>
+					<p>Latitudine: <i class="latitude">Non disponibile</i></p>
+					<p>Longitudine <i class="longitude">Non disponibile</i></p>
+				</li>
+			</ul>
+			
 		</div>
 		<div data-role="footer" data-position="fixed">
 			<h4 class="info-lbl"></h4>
@@ -51,6 +80,7 @@
 
 
 	<!-- LOGIN -->
+	<!-- 	Questa pagina era la vecchia login. Il contenuto è stato spostato in main -->
 	<script src="app/login.js"></script>
 	<div id="login-page" data-role="page">
 		<div data-role="header">
@@ -70,11 +100,59 @@
 	
 	
 	
+	<!-- SIGNUP -->
+	<script src="app/signup.js"></script>
+	<div id="signup-page" data-role="dialog">
+		<div data-role="header">
+			<h1>Registrati</h1>
+		</div>
+		<div data-role="content">
+			<form class="signup-form">
+				<label for="username-input">User</label> <div class="error username-error"></div> <input type="text" name="username" id="username-input" value="">
+				<label for="password-input">Password</label> <div class="error password-error"></div> <input type="password" name="password" id="password-input" value="">
+				<label for="password-confirm-input">Password</label> <div class="error password_confirm-error"></div> <input type="password" name="password_confirm" id="password-confirm-input" value="">
+				<label for="email-input">Email</label> <div class="error email-error"></div> <input type="text" name="email" id="email-input" value="">
+				
+				<div class="error __all__-error"></div>
+				
+				<input type="hidden" name="csrfmiddlewaretoken"	/>
+				<a class="signup-btn" data-role="button" data-rel="dialog">Registrati</a>
+			</form>
+			<ul class="errors">
+			</ul>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4></h4>
+		</div>
+	</div>
+	
+	
+	
+	<!-- LOGOUT -->
+	<script src="app/login.js"></script>
+	<div id="logout-page" data-role="page">
+		<div data-role="header">
+			<h1>Logout</h1>
+		</div>
+		<div data-role="content">
+			<form class="logout-form">
+				<p>Stai per disconnetterti da OCD.</p><p>Sicuro di voler proseguire?</p>
+				<a class="logout-btn" data-role="button" data-rel="dialog">Ok</a>
+				<input type="hidden" name="csrfmiddlewaretoken"	/>
+			</form>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4></h4>
+		</div>
+	</div>
+	
+	
+	
 	
 	<!-- CATEGORY -->
 	<script src="app/category.js"></script>
 	<script id="category-entry-template" type="text/x-handlebars-template"> 
-  		<li data-slug="{{slug}}" data-id="{{id}}"><a href="#"><h1>{{name}}</h1><p>{{description}}</p></a><span class="ui-li-count">{{count}}</span></li>
+  		<li data-slug="{{slug}}" data-name="{{name}}" data-id="{{id}}"><a href="#"><h1>{{name}}</h1><p>{{description}}</p></a><span class="ui-li-count">{{count}}</span></li>
 	</script>
 	<div id="category-page" data-role="page">
 		<div data-role="header" data-position="fixed">
@@ -94,7 +172,10 @@
 	<!-- LAYERS -->
 	<script src="app/layer.js"></script>
 	<script id="layer-entry-template" type="text/x-handlebars-template"> 
-  		<li data-typename="{{typename}}" data-name="{{name}}" data-id="{{id}}"><a href="#"><h1>{{title}}</h1><p>{{abstract}}</p></a></li>
+  		<li data-typename="{{typename}}" data-title="{{title}}" data-name="{{name}}" data-id="{{id}}"><a href="#"><h1>{{title}}</h1><p>{{abstract}}</p></a></li>
+	</script>
+	<script id="layer-empty-template" type="text/x-handlebars-template"> 
+  		<li><i>Nessun layer disponibile</i></li>
 	</script>
 	<div id="layers-page" data-role="page">
 		<div data-role="header" data-position="fixed">
@@ -141,9 +222,12 @@
 	<script id="poi-entry-template" type="text/x-handlebars-template"> 
   		<li data-id="{{id}}"><a href="#"><h1>{{properties.NAME}}</h1><p>{{properties.CATEGORY}}</p></a></li>
 	</script>
+	<script id="poi-empty-template" type="text/x-handlebars-template"> 
+  		<li><i>Nessun POI trovato</i></li>
+	</script>
 	<div id="poi-page" data-role="page">
 		<div data-role="header" data-position="fixed">
-			<h1>POIs</h1>
+			<h1>POI trovati...</h1>
 		</div>
 		<div data-role="content">
 			<ul class="pois-lst" data-role="listview"></ul>
@@ -163,17 +247,22 @@
 		<li><h1><img style="width:100%" src="{{get_preview_url}}" /></h1></li>
 		<li>
 			<h1>Rating</h1>
-				<p>Overall: {{rating.overall}}</p>
-				<p>User: {{rating.user}}</p>
+				{{#if rating.overall}}
+					<p>Media utenti: {{rating.overall}}</p>
+				{{else}}
+					<p>Media utenti: <i>nessun voto</i></p>
+				{{/if}}
+
+				{{#if rating.user}}
+					<p>Il tuo voto: {{rating.user}}</p>
+				{{else}}
+					<p>Il tuo voto: <i>non hai ancora votato</i></p>
+				{{/if}}
 		</li>
 		<li>
-			<h1><a href="#" class='rate-btn' data-id={{id}} data-role="button">Vota</a></h1>
-		</li>
-			{{#forEach properties}}
-				<li><h1>{{key}}</h1><p>{{value}}</p></li>
-			{{/forEach}}
-		<li>
-			<h1><a href="#" class='comments-btn' data-id={{id}} data-role="button">Commenti</a></h1>
+			<h1><a href="#" class='rate-btn' data-id="{{id}}" data-role="button">Vota</a></h1>
+			<h1><a href="#poi-info-page" class='info-btn' data-rel="dialog">Info</a></h1>
+			<h1><a href="#" class='comments-btn' data-id="{{id}}" data-role="button">Commenti</a></h1>
 		</li>
 	</script>
 	<div id="poi-details-page" data-role="page">
@@ -191,20 +280,48 @@
 	
 	
 	
+	<!-- POI INFO -->
+	<script src="app/poi-info.js"></script>
+	<script id="poi-info-template" type="text/x-handlebars-template"> 
+  		<li><h1>{{properties.NAME}}</h1></li>
+			{{#forEach properties}}
+				<li><h1>{{key}}</h1><p>{{value}}</p></li>
+			{{/forEach}}
+	</script>
+	<div id="poi-info-page" data-role="dialog">
+		<div data-role="header" data-position="fixed">
+			<h1>Dettagli</h1>
+		</div>
+		<div data-role="content">
+			<ul class="details-lst" data-role="listview">
+			</ul>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4></h4>
+		</div>
+	</div>
+	
+	
 	
 	<!-- COMMENTS -->
 	<script src="app/comments.js"></script>
 	<script id="poi-comments-template" type="text/x-handlebars-template">
 			<li>
-				<a href="#new-comment-page" data-role="button">Nuovo</a>
+				<h1><a id="new-comment" href="#new-comment-page" data-role="button">Nuovo</a></h1>
 			</li>
-		{{#each comments}}
+		{{#if comments}}
+			{{#each comments}}
+				<li>
+					<h3>{{author.username}}</h3>
+					<h4>{{date}}</h4>
+					<p>{{comment}}</p>
+				</li>
+			{{/each}}
+		{{else}}
 			<li>
-				<h3>{{author.username}}</h3>
-				<h4>{{date}}</h4>
-				<p>{{comment}}</p>
+				<center><h1><i>Nessun commento</i></h1></center>
 			</li>
-		{{/each}}
+		{{/if}}
 	</script>
 	<div id="comments-page" data-role="page">
 		<div data-role="header" data-position="fixed">
@@ -245,19 +362,19 @@
 	<script src="app/rate.js"></script>
 	<div id="rate-page" data-role="dialog">
 		<div data-role="header" data-position="fixed">
-			<h1>Rate</h1>
+			<h1>Vota</h1>
 		</div>
 		<div data-role="content">
 			<div class="ui-grid-d">
-			    <div class="ui-block-a"><a href="#" data-role="button" onclick="OCD.rate.rate(1);">1</a></div>
-			    <div class="ui-block-b"><a href="#" data-role="button" onclick="OCD.rate.rate(2);">2</a></div>
-			    <div class="ui-block-c"><a href="#" data-role="button" onclick="OCD.rate.rate(3);">3</a></div>
-			    <div class="ui-block-d"><a href="#" data-role="button" onclick="OCD.rate.rate(4);">4</a></div>
-			    <div class="ui-block-e"><a href="#" data-role="button" onclick="OCD.rate.rate(5);">5</a></div>
+			    <div class="ui-block-a"><a href="#" onclick="OCD.rate.rate(1);"><img width=100% src="img/star-on.png" /></a></div>
+			    <div class="ui-block-b"><a href="#" onclick="OCD.rate.rate(2);"><img width=100% src="img/star-on.png" /></a></div>
+			    <div class="ui-block-c"><a href="#" onclick="OCD.rate.rate(3);"><img width=100% src="img/star-on.png" /></a></div>
+			    <div class="ui-block-d"><a href="#" onclick="OCD.rate.rate(4);"><img width=100% src="img/star-on.png" /></a></div>
+			    <div class="ui-block-e"><a href="#" onclick="OCD.rate.rate(5);"><img width=100% src="img/star-on.png" /></a></div>
 			</div>
 		</div>
 		<div data-role="footer" data-position="fixed">
-			<h4><a href="#" class="submit" data-role="button">Vota</a></h4>
+			<h4> </h4>
 		</div>
 	</div>
 	

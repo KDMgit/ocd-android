@@ -29,6 +29,8 @@ $(window).bind('ready', function() {
 					
 					OCD.comments.comments.append(html);
 					
+					$('#new-comment').button();
+					
 					// Refresh
 					OCD.comments.comments.listview( "refresh" );
 				}
