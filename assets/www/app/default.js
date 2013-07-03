@@ -40,11 +40,11 @@ OCD.urls = {};
 OCD.urls.geonode = {};
 
 // http://localhost:5000/Proxy/?
- OCD.urls.geonode.host = 'http://192.168.0.112:8000';
+// OCD.urls.geonode.host = 'http://192.168.0.112:8000';
 // OCD.urls.geonode.host = 'http://95.110.167.11';
 // OCD.urls.geonode.host = 'http://localhost:8000';
 
-//OCD.urls.geonode.host = 'http://95.110.167.86';
+OCD.urls.geonode.host = 'http://95.110.167.86';
 
 OCD.urls.geonode.token = OCD.urls.geonode.host + '/mobile/token';
 OCD.urls.geonode.login = OCD.urls.geonode.host + '/mobile/login';
@@ -161,6 +161,7 @@ OCD.ajax.getHeaders = function() {
 	return headers;
 }
 
+// TOKEN
 OCD.ajax.token = function() {
 	$.ajax({
 		url : OCD.urls.geonode.token,
@@ -168,7 +169,7 @@ OCD.ajax.token = function() {
 		success : function(data, status) {
 			OCD.ajax.cookie = data;
 			OCD.signup.token.val(data['csrftoken']);
-			OCD.main.info.text('Token: ' + status);
+			//OCD.main.info.text('Token: ' + status);
 			$(window).trigger('ocd/token');
 		},
 	});

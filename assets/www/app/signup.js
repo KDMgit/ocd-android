@@ -24,7 +24,7 @@ $(window).bind('ready', function() {
 			url : OCD.urls.geonode.signup,
 			type : 'post',
 			success : function(data, status, xhr) {
-				OCD.main.info.text('SignUp: ' + status);
+				//OCD.main.info.text('SignUp: ' + status);
 				$('#signup-page').dialog('close');
 				
 				if (status == 'success') {
@@ -35,10 +35,10 @@ $(window).bind('ready', function() {
 					});
 				}
 				
-				OCD.ajax.cookie = data;
+				OCD.ajax.cookie = data.cookie;
 			},
 			error : function(xhr, status, error){
-				OCD.main.info.text('SignUP: ' + error);
+				//OCD.main.info.text('SignUP: ' + error);
 				$(window).trigger('ocd/logout');
 				
 				data = $.parseJSON(xhr.responseText);
